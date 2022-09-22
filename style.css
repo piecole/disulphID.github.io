@@ -1,0 +1,107 @@
+.headpic{
+	width : 30%;
+	height : auto;
+	display : block;
+	margin: auto;
+	margin-top: 40px;
+	margin-bottom : 40px;
+	user-select: none;
+}
+
+
+.title{
+	user-select: none;
+	font-size: 50;
+	text-align: center;
+	padding: 20;padding-top: 10;
+	border-bottom: 2px solid black;
+}
+
+.subtitle{
+	font-size:14;
+}
+
+.main{
+	max-width: 1440px;
+	border-radius: 5px;
+	width: 90%;
+	overflow: auto;
+	overflow-x: hidden;
+	padding: 1%;
+	/*background: rgba(200, 200, 200, 0.4);*/
+	margin:auto;
+}
+
+
+.item{
+	font-family: sans-serif;
+	background: rgba(200, 200, 200, 0.4);
+	/* border-bottom: 1px solid black; */
+	float: left;
+	overflow: clip;
+	padding: 1%;
+	border-top: rgba(0, 0, 0, 0.4);
+	margin: 0.6%;
+	text-align: center;
+	width: 96.4%;
+	}
+	
+.headbox{
+	padding: 1%;
+	margin: 0.6%;
+	width: 100%;
+}
+.head{
+	font-family: sans-serif;
+	background: rgba(200, 200, 200, 0.4);
+	/* border-bottom: 1px solid black; */
+	float: left;
+	overflow: clip;
+	padding: 1%;
+	border-top: rgba(0, 0, 0, 0.4);
+	margin: 0.6%;
+	text-align: center;
+	width: 12.8%;
+}
+
+.subitem{
+	border-radius: inherit;
+	width: 13.4%;
+	overflow: inherit;
+	padding: inherit;
+	background: rgba(255, 255, 255, 0.5);
+	margin:inherit;
+	float:inherit;
+	height: 50%;
+}
+
+.citation{
+	font-family:sans-serif;
+	/*font-size:11;*/
+	padding:2%;
+	float:left;
+}
+
+a {
+	color: black;
+}
+
+#myInput{
+	font-size: 20;
+	padding: 10px;
+}
+
+.menu{
+	width: fit-content;
+	margin: auto;
+	background-color: black;
+}
+
+.infotitle{
+	width : 13%
+}
+
+.info{
+	width : 80%;
+}
+
