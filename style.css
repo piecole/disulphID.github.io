@@ -1,5 +1,6 @@
 .headpic{
-	width : 30%;
+	max-width : 500px;
+	width:90%;
 	height : auto;
 	display : block;
 	margin: auto;
@@ -15,6 +16,11 @@
 	text-align: center;
 	padding: 20;padding-top: 10;
 	border-bottom: 2px solid black;
+	text-decoration:none;
+}
+
+a{
+	text-decoration:none;
 }
 
 .subtitle{
@@ -24,7 +30,7 @@
 .main{
 	max-width: 1440px;
 	border-radius: 5px;
-	width: 90%;
+	width: 98%;
 	overflow: auto;
 	overflow-x: hidden;
 	padding: 1%;
@@ -33,53 +39,64 @@
 }
 
 
-.item{
+.item, .headbox{
 	font-family: sans-serif;
 	background: rgba(200, 200, 200, 0.4);
 	/* border-bottom: 1px solid black; */
 	float: left;
 	overflow: clip;
-	padding: 1%;
+	padding: 0.5%;
 	border-top: rgba(0, 0, 0, 0.4);
-	margin: 0.6%;
+	margin: 0.3%;
 	text-align: center;
 	width: 96.4%;
+	height:3.5em;
 	}
 	
 .headbox{
-	padding: 1%;
-	margin: 0.6%;
-	width: 100%;
+	background: white;
+	height: 80px;
 }
-.head{
+/*.head{
 	font-family: sans-serif;
 	background: rgba(200, 200, 200, 0.4);
-	/* border-bottom: 1px solid black; */
 	float: left;
 	overflow: clip;
-	padding: 1%;
+	padding: 0.65%;
 	border-top: rgba(0, 0, 0, 0.4);
 	margin: 0.6%;
 	text-align: center;
-	width: 12.8%;
-}
+	width: 8.8%;
+	
+	user-select: none;
+	font-size: 13;
+}*/
 
-.subitem{
+.subitem, .head{
 	border-radius: inherit;
-	width: 13.4%;
-	overflow: inherit;
+	width: 9.2%;
+	overflow: hidden;
 	padding: inherit;
 	background: rgba(255, 255, 255, 0.5);
-	margin:inherit;
+	margin:0.5%;
 	float:inherit;
 	height: 50%;
 }
 
+.head{
+	background: rgba(200, 200, 200, 0.4);
+	padding-bottom: 0;
+	margin-bottom: 0;
+	user-select:none;
+	cursor: pointer;
+	height: 100%;
+}
 .citation{
 	font-family:sans-serif;
 	/*font-size:11;*/
 	padding:2%;
 	float:left;
+	width:100%;
 }
 
 a {
@@ -89,19 +106,192 @@ a {
 #myInput{
 	font-size: 20;
 	padding: 10px;
+	width: 500;
 }
 
 .menu{
-	width: fit-content;
+	max-width: fit-content;
 	margin: auto;
 	background-color: black;
 }
 
+.infotitle, .info{
+	padding:0.7%;
+}
+
 .infotitle{
-	width : 13%
+	width : 15%;
+	text-align: right;
+	
 }
 
 .info{
-	width : 80%;
+	width : 30%;
+	text-align: left;
+	color: inherit;
 }
 
+.structure{
+
+	height: 700px;
+}
+
+.nothing{
+	z-index : -10;
+	float: left;
+	position: absolute;
+	right: 50;
+	top: 50;
+}
+
+.col2, .col4, .col5, .col6, .col7, .col8{
+	width: 6%;
+}
+
+.col1, .col3{
+	width: 24%;
+}
+
+.col5{
+	width: 6%;
+}
+
+.subitem{
+	height: 30px;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	padding-bottom:8px;
+}
+
+@media only screen and (max-width: 1400px){
+	.col2.head, .col4.head, .col5.head, .col6.head, .col7.head, .col8.head{
+		font-size:13;	
+	}
+	.col5.head{
+		font-size:11;
+	}
+}
+
+@media only screen and (max-width: 950px){
+	.col5, .col6, .col7{
+		display: none;
+	}
+	.col2, .col4, .col5, .col6, .col7, .col8{
+		width: 7.3%;
+	}
+	.col2.head, .col4.head{	
+		font-size:11px;
+	}
+	.col1, .col3{
+		width: 34%;
+		
+	}
+	
+	.item{
+		height:50px;
+	}
+	
+	.structure{
+		height:400px
+	}
+	
+}
+
+@media only screen and (max-width: 600px){
+	.col1, .col3{
+		font-size:16px;
+	}
+	.col8.head{
+		font-size:8px;
+	}
+	.long{
+		display:none;
+	}
+	.col2.subitem, .col4.subitem{
+		font-size:11;
+	}
+}
+
+@media only screen and (max-width: 1000px){
+	.long2{
+		display:none;
+	}
+	
+}
+
+.col7.head{
+	background: linear-gradient(90deg, rgba(255,0,100,.3), rgba(150,150,100,0.3) 50%, rgba(0,255,100,.3) 80%);
+}
+
+.link{
+	color: blue;
+}
+
+.knowntick{
+	font-size:20;
+}
+
+.alternate{
+	min-width:300px;
+}
+
+.loading{
+	display: none;
+}
+
+.title.home{
+	/*padding-top:30vh;*/
+	border:none;
+	/*font-size:200%;*/
+}
+
+.citation.home{
+	display:none;
+}
+
+.item.home {
+	border-radius:10px;
+	max-width : 500px;
+	width:90%;
+	margin:auto;
+	float:none;
+	border-radius: 5px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	-webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+	transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.item.home::after {
+	content: "";
+	border-radius: 5px;
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+	opacity: 0;
+	-webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+	transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.item.home:hover {
+	-webkit-transform: scale(1.03, 1.03);
+	transform: scale(1.03, 1.03);
+}
+
+.item.home:hover::after {
+    opacity: 1;
+}
+
+.item, .head{
+	border-radius:5px;
+}
+
+.item.home.about_button{
+	width:10%;
+}
