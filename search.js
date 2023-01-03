@@ -24,14 +24,14 @@ function myFunction() {
     }
   }
   
-};
+}
 
 function clearheads(){
-	heads = document.getElementsByClassName("head");
-	for (i = 0; i < heads.length; i++){
+	var heads = document.getElementsByClassName("head");
+	for (var i = 0; i < heads.length; i++){
 			heads[i].innerText = heads[i].innerText.replace(" ^","");
 			heads[i].innerText = heads[i].innerText.replace(" v","");
-		};
+		}
 }
 
 function actualSort(col){
@@ -39,7 +39,12 @@ function actualSort(col){
 	var column = ".col" + col.toString();
 	var head = "head col" + col.toString();
 	head = document.getElementsByClassName(head)[0];
-	var numerical = true
+	var li = document.getElementsByClassName("head");
+	for (var i = 0; i < li.length; i++){
+		li[i].classList.remove("selected");
+	}
+	head.classList.add("selected");
+	var numerical = true;
 	if(["7"].includes(col.toString())){
 		numerical = false;
 	}
@@ -61,25 +66,24 @@ function actualSort(col){
 			return $(b).find(column).text().replace("nan", 0).localeCompare($(a).find(column).text().replace("nan", 0), undefined, {numeric : numerical});
 		});
 		head.innerHTML += " v";
-	};
+	}
 	$(".search").html(alphabeticallyOrderedDivs);
 	document.getElementsByClassName('search')[0].style.display = "";
 	document.getElementsByClassName('loading')[0].style.display = "none";
 	
 	//loadMessage.style.display = "none";
-};
+}
 
 function sortA(col){
-	loadMessage = document.getElementsByClassName('loading')[0];
+	var loadMessage = document.getElementsByClassName('loading')[0];
 	loadMessage.style.display = "block";
-	search = document.getElementsByClassName('search')[0];
+	var search = document.getElementsByClassName('search')[0];
 	search.style.display = "none";
 	setTimeout( function (){ actualSort(col);}, 0);
-	
 }
 
 var details = document.getElementsByClassName("struc")[0].innerText;
-details = details.split(" ")
+details = details.split(" ");
 
 var toggled = false;
 
@@ -97,7 +101,7 @@ $(function() {
 			viewer.addLabel(target.resn+target.resi+" - "+target.atom,{position: target, backgroundColor: 'gray', backgroundOpacity: 0.8});
 					/*viewer.center({target}, 1000);*/
 		  }
-		  });;
+		  });
   /*viewer.setClickable({},true,function(atom,viewer,event,container){
 	try {
 	if (toggled == false){
@@ -130,11 +134,11 @@ $(function() {
   viewer.center({chain:details[1],resi:details[2]});
   viewer.addSurface({}, {opacity:0.5, color: "gray"});
   
-  one = viewer.selectedAtoms({chain:details[1],resi:details[2], atom:["SG"]})
-  two = viewer.selectedAtoms({chain:details[3],resi:details[4], atom:["SG"]})
-  var one = [one[0].x, one[0].y, one[0].z]
-  var two = [two[0].x, two[0].y, two[0].z]
-  var central = [(one[0] + two[0])/2, (one[1] + two[1])/2, (one[2] + two[2])/2]
+  one = viewer.selectedAtoms({chain:details[1],resi:details[2], atom:["SG"]});
+  two = viewer.selectedAtoms({chain:details[3],resi:details[4], atom:["SG"]});
+  var one = [one[0].x, one[0].y, one[0].z];
+  var two = [two[0].x, two[0].y, two[0].z];
+  var central = [(one[0] + two[0])/2, (one[1] + two[1])/2, (one[2] + two[2])/2];
   
   viewer.addCylinder({
                       start: {x:one[0], y:one[1], z:one[2]},
@@ -149,9 +153,9 @@ $(function() {
   /*viewer.addLine({x:one[0].x, y:one[0].y, z:one[0].z}, {x:two[0].x, y:two[0].y, z:two[0].z});*/
   
   var m = viewer.addModel();
-  m.addAtoms([{elem:'DISULPH', x:central[0], y:central[1], z:central[2]}])
+  m.addAtoms([{elem:'DISULPH', x:central[0], y:central[1], z:central[2]}]);
   //m.setStyle({},{sphere:{}});
-  viewer.center({elem:["DISULPH"]})
+  viewer.center({elem:["DISULPH"]});
   
   //disulphide = viewer.selectedAtoms({chain:details[1],resi:details[2]}) + viewer.selectedAtoms({chain:details[3],resi:details[4]});
   //viewer.center({x:central[0], y:central[1], z:central[2]}, 1000);
@@ -165,8 +169,9 @@ $(function() {
   //alert(viewer.getView());
   /*viewer.addLine({dashed:true,start:{chain:details[1],resi:details[2]},end:{chain:details[3],resi:details[4]}})*/
   //viewer.zoom(5);
-  viewer.zoom(5);
+  viewer.zoom(4);
   viewer.render();
+
 
 });
 });
