@@ -1,3 +1,7 @@
+html{
+	background-color:white;
+}
+
 .headpic{
 	max-width : 500px;
 	width:90%;
@@ -351,6 +355,7 @@ a {
 	padding:10px;
 }
 
+
 .item.about{
 	width:90%;
 	text-align:justify;
@@ -374,6 +379,10 @@ h1{
 	height:fit-content;
 	max-width:40%;
 	width:200px;
+}
+
+li{
+	text-align:left;
 }
 
 .selected{
