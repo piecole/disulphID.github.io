@@ -82,96 +82,104 @@ function sortA(col){
 	setTimeout( function (){ actualSort(col);}, 0);
 }
 
-var details = document.getElementsByClassName("struc")[0].innerText;
-details = details.split(" ");
+var structurePage = false;
+try{
+	var details = document.getElementsByClassName("struc")[0].innerText;
+	details = details.split(" ");
+	structurePage = true;
+}catch{
+	
+}
 
-var toggled = false;
+//var toggled = false;
 
-$(function() {
-  let element = $('#viewer');
-  let config = {backgroundColor: 'white' };
-  let viewer = $3Dmol.createViewer( element, config );
-  
-  $3Dmol.download("pdb:" + details[0],viewer,{},function(){
-	  viewer.setClickable({},true,function(target,viewer,event,container) {
-		  if(target.label){
-			  viewer.removeLabel(target.label);
-			  delete target.label;
-		  }else{
-			viewer.addLabel(target.resn+target.resi+" - "+target.atom,{position: target, backgroundColor: 'gray', backgroundOpacity: 0.8});
-					/*viewer.center({target}, 1000);*/
-		  }
-		  });
-  /*viewer.setClickable({},true,function(atom,viewer,event,container){
-	try {
-	if (toggled == false){
-		alert("worked");
-		viewer.setStyle({chain:details[1]},{cartoon:{colorscheme:'greenCarbon',thickness:0.5}});
-		viewer.setStyle({chain:details[3]},{cartoon:{colorscheme:'blueCarbon',thickness:0.5}});
-		toggled = true;
-		alert(toggled)
-	}else{
-		alert("worked");
-		viewer.setStyle({chain:details[1]},{stick:{colorscheme:'greenCarbon',thickness:0.5}});
-		viewer.setStyle({chain:details[3]},{stick:{colorscheme:'blueCarbon',thickness:0.5}});
-		toggled = false;
-		alert(toggled)
-	};
-	}catch(error){
-		console.error(error);
-  };
-  });*/
-  viewer.setStyle({},{cartoon:{colorscheme:'grayCarbon'}});
-  viewer.setStyle({chain:details[1]},{cartoon:{colorscheme:'greenCarbon'}});
-  viewer.setStyle({chain:details[3]},{cartoon:{colorscheme:'blueCarbon'}});
-  /*viewer.setStyle({chain:'B',invert:true},{cartoon:{}});*/
-  viewer.addStyle({chain:details[1],resn:"CYS"},{stick:{colorscheme:"brownCarbon",thickness:1.0}});
-  viewer.addStyle({chain:details[3],resn:"CYS"},{stick:{colorscheme:"brownCarbon",thickness:1.0}});
-  /*viewer.setStyle({chain:details[1],resi:details[2]},{stick:{colorscheme:"brownCarbon",thickness:1.0}});
-  viewer.setStyle({chain:details[3],resi:details[4]},{stick:{colorscheme:"brownCarbon",thickness:1.0}});*/
-  viewer.addLabel("Cys " + details[2],{backgroundColor: 'darkgreen', backgroundOpacity: 0.8, alignment : "bottomRight"},{chain:details[1],resi:details[2]});
-  viewer.addLabel("Cys " + details[4],{backgroundColor: 'darkblue', backgroundOpacity: 0.8, alignment : "bottomRight"},{chain:details[3],resi:details[4]});
-  viewer.center({chain:details[1],resi:details[2]});
-  viewer.addSurface({}, {opacity:0.5, color: "gray"});
-  
-  one = viewer.selectedAtoms({chain:details[1],resi:details[2], atom:["SG"]});
-  two = viewer.selectedAtoms({chain:details[3],resi:details[4], atom:["SG"]});
-  var one = [one[0].x, one[0].y, one[0].z];
-  var two = [two[0].x, two[0].y, two[0].z];
-  var central = [(one[0] + two[0])/2, (one[1] + two[1])/2, (one[2] + two[2])/2];
-  
-  viewer.addCylinder({
-                      start: {x:one[0], y:one[1], z:one[2]},
-                      end: {x:two[0], y:two[1], z:two[2]},
-                      radius: 0.1,
-					  dashed:true,
-					  fromCap: 1,
-					  toCap:1
-                  });
-  
-  
-  /*viewer.addLine({x:one[0].x, y:one[0].y, z:one[0].z}, {x:two[0].x, y:two[0].y, z:two[0].z});*/
-  
-  var m = viewer.addModel();
-  m.addAtoms([{elem:'DISULPH', x:central[0], y:central[1], z:central[2]}]);
-  //m.setStyle({},{sphere:{}});
-  viewer.center({elem:["DISULPH"]});
-  
-  //disulphide = viewer.selectedAtoms({chain:details[1],resi:details[2]}) + viewer.selectedAtoms({chain:details[3],resi:details[4]});
-  //viewer.center({x:central[0], y:central[1], z:central[2]}, 1000);
-  //viewer.center({chain:details[1],resi:details[2]});
-  /*view = viewer.getView();
-  view[0] = central[0];
-  view[1] = central[1];
-  view[2] = central[2];
-  //view[4] = 80.88
-  viewer.setView(view);*/
-  //alert(viewer.getView());
-  /*viewer.addLine({dashed:true,start:{chain:details[1],resi:details[2]},end:{chain:details[3],resi:details[4]}})*/
-  //viewer.zoom(5);
-  viewer.zoom(4);
-  viewer.render();
+if (structurePage == true){
+	$(function() {
+	  let element = $('#viewer');
+	  let config = {backgroundColor: 'white' };
+	  let viewer = $3Dmol.createViewer( element, config );
+	  
+	  $3Dmol.download("pdb:" + details[0],viewer,{},function(){
+		  viewer.setClickable({},true,function(target,viewer,event,container) {
+			  if(target.label){
+				  viewer.removeLabel(target.label);
+				  delete target.label;
+			  }else{
+				viewer.addLabel(target.resn+target.resi+" - "+target.atom,{position: target, backgroundColor: 'gray', backgroundOpacity: 0.8});
+						/*viewer.center({target}, 1000);*/
+			  }
+			  });
+	  /*viewer.setClickable({},true,function(atom,viewer,event,container){
+		try {
+		if (toggled == false){
+			alert("worked");
+			viewer.setStyle({chain:details[1]},{cartoon:{colorscheme:'greenCarbon',thickness:0.5}});
+			viewer.setStyle({chain:details[3]},{cartoon:{colorscheme:'blueCarbon',thickness:0.5}});
+			toggled = true;
+			alert(toggled)
+		}else{
+			alert("worked");
+			viewer.setStyle({chain:details[1]},{stick:{colorscheme:'greenCarbon',thickness:0.5}});
+			viewer.setStyle({chain:details[3]},{stick:{colorscheme:'blueCarbon',thickness:0.5}});
+			toggled = false;
+			alert(toggled)
+		};
+		}catch(error){
+			console.error(error);
+	  };
+	  });*/
+	  viewer.setStyle({},{cartoon:{colorscheme:'grayCarbon'}});
+	  viewer.setStyle({chain:details[1]},{cartoon:{colorscheme:'greenCarbon'}});
+	  viewer.setStyle({chain:details[3]},{cartoon:{colorscheme:'blueCarbon'}});
+	  /*viewer.setStyle({chain:'B',invert:true},{cartoon:{}});*/
+	  viewer.addStyle({chain:details[1],resn:"CYS"},{stick:{colorscheme:"brownCarbon",thickness:1.0}});
+	  viewer.addStyle({chain:details[3],resn:"CYS"},{stick:{colorscheme:"brownCarbon",thickness:1.0}});
+	  /*viewer.setStyle({chain:details[1],resi:details[2]},{stick:{colorscheme:"brownCarbon",thickness:1.0}});
+	  viewer.setStyle({chain:details[3],resi:details[4]},{stick:{colorscheme:"brownCarbon",thickness:1.0}});*/
+	  viewer.addLabel("Cys " + details[2],{backgroundColor: 'darkgreen', backgroundOpacity: 0.8, alignment : "bottomRight"},{chain:details[1],resi:details[2]});
+	  viewer.addLabel("Cys " + details[4],{backgroundColor: 'darkblue', backgroundOpacity: 0.8, alignment : "bottomRight"},{chain:details[3],resi:details[4]});
+	  viewer.center({chain:details[1],resi:details[2]});
+	  viewer.addSurface({}, {opacity:0.5, color: "gray"});
+	  
+	  one = viewer.selectedAtoms({chain:details[1],resi:details[2], atom:["SG"]});
+	  two = viewer.selectedAtoms({chain:details[3],resi:details[4], atom:["SG"]});
+	  var one = [one[0].x, one[0].y, one[0].z];
+	  var two = [two[0].x, two[0].y, two[0].z];
+	  var central = [(one[0] + two[0])/2, (one[1] + two[1])/2, (one[2] + two[2])/2];
+	  
+	  viewer.addCylinder({
+						  start: {x:one[0], y:one[1], z:one[2]},
+						  end: {x:two[0], y:two[1], z:two[2]},
+						  radius: 0.1,
+						  dashed:true,
+						  fromCap: 1,
+						  toCap:1
+					  });
+	  
+	  
+	  /*viewer.addLine({x:one[0].x, y:one[0].y, z:one[0].z}, {x:two[0].x, y:two[0].y, z:two[0].z});*/
+	  
+	  var m = viewer.addModel();
+	  m.addAtoms([{elem:'DISULPH', x:central[0], y:central[1], z:central[2]}]);
+	  //m.setStyle({},{sphere:{}});
+	  viewer.center({elem:["DISULPH"]});
+	  
+	  //disulphide = viewer.selectedAtoms({chain:details[1],resi:details[2]}) + viewer.selectedAtoms({chain:details[3],resi:details[4]});
+	  //viewer.center({x:central[0], y:central[1], z:central[2]}, 1000);
+	  //viewer.center({chain:details[1],resi:details[2]});
+	  /*view = viewer.getView();
+	  view[0] = central[0];
+	  view[1] = central[1];
+	  view[2] = central[2];
+	  //view[4] = 80.88
+	  viewer.setView(view);*/
+	  //alert(viewer.getView());
+	  /*viewer.addLine({dashed:true,start:{chain:details[1],resi:details[2]},end:{chain:details[3],resi:details[4]}})*/
+	  //viewer.zoom(5);
+	  viewer.zoom(4);
+	  viewer.render();
 
 
-});
-});
+	});
+	});
+}
