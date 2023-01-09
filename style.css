@@ -33,6 +33,7 @@ a{
 }
 
 .main{
+	background-color:white;
 	max-width: 1440px;
 	border-radius: 5px;
 	width: 98%;
@@ -54,7 +55,7 @@ a{
 	border-top: rgba(0, 0, 0, 0.4);
 	margin: 0.3%;
 	text-align: center;
-	width: 96.4%;
+	width: 98.5%;
 	height:3.5em;
 }
 	
@@ -154,7 +155,7 @@ a {
 }
 
 .info{
-	width : 30%;
+	width : 31%;
 	text-align: left;
 	color: inherit;
 	overflow-y:auto;
