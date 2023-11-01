@@ -644,6 +644,7 @@ li {
 
 .regions{
 	display:grid;
+	display:none;
 	grid-auto-flow: column;
 	gap: 7px;
 	overflow-x:scroll;
