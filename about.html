@@ -1,0 +1,16 @@
+<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='icon'  type='image/png' href='icon.png'><link rel = 'stylesheet' href = 'style.css'><script src='3Dmol-min.js'></script><title>ReDisulphID</title></head><body><a href = 'list.html'><div class= 'title'>ReDisulphID<div class='subtitle'><p>a tool for identifying redox-active disulphides from structures</div></div></a><div class = 'main'>
+<div class = 'menu'><a class = 'button' href = 'index.html'><div class= 'menuitem'>Home</div></a><a class = 'button'  href = 'list.html'><div class= 'menuitem'>List</div></a></div><div class = 'item about' style='background:rgba(200, 200, 200, 0.4);;'><h1>About</h1>
+<p>Redox-active disulphides have emerged as key regulators of protein function, making them important both physiologically and in disease. They can be targeted as nucleophiles by covalent drugs, which can mediate potent biological effects.
+<p><span class = "serif">ReDisulphID</span> 
+(<b>Re</b>dox <b>Disulph</b>ide <b>ID</b>entifier) 
+is a bioinformatic tool that uses available structural data to predict the presence of novel redox-active disulphide bonds in mammalian proteins.
+<br><br>This has been achieved by searching all mammalian protein structures for cysteine pairs with thiols within 10 &#8491; of each other in the RCSB protein databank. Finally, known redox-active disulphides were used to determine parameters to give a rating to potential novel redox-regulated disulphides, this rating is in the form of a % redox score.</p>
+<h2>HSE - Half sphere exposure</h2>
+<p>HSE is a measure of the accessibility of an amino acid side-chain. C&#x3B1; atoms are counted in a 12 &#8491; radius around the C&#x3B1; of each cysteine in the potential redox-active disulphide bond. A lower HSE means an amino acid has fewer proximal amino acids, so is more accessible.</p>
+
+<h2>Redox Score</h2>
+<p>The redox score for each potential redox-active disulphide is calculated from solvent accessibility, pK<sub>a</sub>, and distance between each thiol in the cysteine pair. The highest redox score is 87.45, and the lowest redox score of a known redox-active disulphide is 87.45, while the lowest score overall is 53.52.</p>
+<h2>Duplicates</h2>
+<p>A particular cysteine pair often features in multiple structures, which would lead to duplicates. To remove duplicates, cysteines were assigned to a residue number in their UniProt sequence, then the structure where the cysteine thiols are closest to each other is chosen for that potential redox-active disulphide.</p>
+<br><br><p>The most recent structure in this database is from 2019-02-20.</p>
+</div><div class = 'citation about'>If this tool was useful for finding a disulphide, please cite:    <p></div></div><script src='search.js'></script></body></html>
