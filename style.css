@@ -563,9 +563,8 @@ li {
 
 .infotitle{
 	text-align:right;
-	color:rgb(92, 91, 91);
+	font-style: italic;
 }
-
 
 /*{
 	outline:solid 1px red;
