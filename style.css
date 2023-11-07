@@ -267,7 +267,7 @@ a {
 
 .search > a > .item, .headbox{
 	display: grid;
-	grid-template-columns: 1fr 10% 10% 10% 10%;
+	grid-template-columns: 1fr 10% 10% 10%;
 	gap:.7%;
 	padding:.7%;
 	box-sizing: border-box;
@@ -288,7 +288,7 @@ a {
 
 	.search > a > .item, .headbox{
 		display: grid;
-		grid-template-columns: 1fr 10% 10% 10% 10%;
+		grid-template-columns: 1fr 10% 10% 10%;
 		gap:7px;
 		padding:7px;
 		box-sizing: border-box;
