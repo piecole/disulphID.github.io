@@ -135,10 +135,6 @@ a {
 	border-radius: 5px;
 }
 
-*{
-	outline: 1px solid red;
-}
-
 .item:hover > .subitem,
 .current > .region_info,
 .region:hover > .region_info{
