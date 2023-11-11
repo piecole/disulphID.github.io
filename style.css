@@ -58,9 +58,7 @@ a {
 	width:auto;
 }
 
-html{
-	height:100%;
-}
+
 body{
 	min-height:95%;
 	display:grid;
@@ -137,6 +135,9 @@ a {
 	border-radius: 5px;
 }
 
+*{
+	outline: 1px solid red;
+}
 
 .item:hover > .subitem,
 .current > .region_info,
@@ -373,9 +374,6 @@ a {
 	border: none;
 	/*font-size:200%;*/
 }
-
-
-
 
 .item.home {
 	border-radius: 10px;
