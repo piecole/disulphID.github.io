@@ -262,14 +262,12 @@ $(".tablink").click(function(){
 });
 	
 if (structurePage == true) {
-
 	if(window.location.hash){
 		let hash = window.location.hash.substring(1)
 		tabClick(hash);
 	}else{
 		tabClick(0);
 	}
-
 };
 
 //	Allow region cards to be clicked to reveal their position in the structure
