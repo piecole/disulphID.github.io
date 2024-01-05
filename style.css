@@ -410,6 +410,13 @@ h2:target + p{
 	border-radius: 20px;
 }
 
+.item.about > p > a{
+	border-bottom: 1px dotted;
+	border-radius: 0;
+}
+.item.about > p > a:hover{
+	border-bottom: 1px solid;
+}
 
 h1 {
 	text-align: center;
@@ -567,6 +574,7 @@ li {
 	font-style: normal;
 	font-family: serif;
 	color: rgba(0, 0, 0, 0.4);
+	background-color: rgba(233,233,233, 0.8);
 	padding: 5px;
 	border-radius: 3px 10px 10px 10px;
 	vertical-align: super;

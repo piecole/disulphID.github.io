@@ -10,7 +10,7 @@ is a bioinformatic tool that uses available structural data to predict the prese
 <h2 id = "pkainfo">Minimum pK<sub>a</sub></h2>
 <p>The lowest pK<sub>a</sub> from each thiol in the cystiene pair. A lower minimum pK<sub>a</sub> means a cysteine pair is more likely to form a redox-regulated disulphide bond. The pK<sub>a</sub> of the cysteine thiols in the potential redox-active disulphide bond are calculated using the <a href = "https://github.com/jensengroup/propka" target='_blank' rel='noopener'>PROPKA algorithm</a>.</p>
 <h2 id = "scoreinfo">Redox Score</h2>
-<p>The redox score for each potential redox-active disulphide is calculated from solvent accessibility, pK<sub>a</sub>, and distance between each thiol in the cysteine pair. The highest redox score is 100.0, and the lowest redox score of a known redox-active disulphide is 70.86, while the lowest score overall is 0.</p>
+<p>The redox score is related to how likely a cysteine pair is to form a redox active disulphide. It is calculated from solvent accessibility, pK<sub>a</sub>, and distance between each thiol in the cysteine pair. The highest redox score is 100.0, and the lowest redox score of a known redox-active intermolecular disulphide is 70.86, while the lowest score overall is 0.</p>
 <h2>Duplicates</h2>
 <p>A particular cysteine pair often features in multiple structures, which would lead to duplicates. To remove duplicates, cysteines were assigned to a residue number in their UniProt sequence, then the structure where the cysteine thiols are closest to each other is chosen for that potential redox-active disulphide.</p>
 <br><br><p>The most recent structure in this database is from 2023-01-11.</p>
