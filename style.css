@@ -228,10 +228,10 @@ h2:target + p{
 .structure {
 	height: 60vh;
 	height: 60svh;
-	width:100%;
+	width: 100%;
 	box-sizing: border-box;
-	padding:7px;
-	margin:0px;
+	padding: 7px;
+	margin: 0px;
 }
 
 .nothing {
