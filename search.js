@@ -8,6 +8,8 @@ function removeRegEx(input) {
 }
 
 function myFunction() {
+	// Triggered on key up of the search bar
+
 	// Declare variables
 	var input, filter, ul, li, a, i, txtValue;
 	input = document.getElementById('myInput');
@@ -26,6 +28,24 @@ function myFunction() {
 		}
 	}
 
+	// // Check how many li have display == ""
+	// var count = 0;
+	// for (i = 0; i < li.length; i++) {
+	// 	if (li[i].style.display == "") {
+	// 		count++;
+	// 	}
+	// }
+	// // If 0, write a message to say no results
+	// var gone = false;
+	// if (count == 0) {
+	// 	// Save the contents of document.getElementsByClassName('search')[0].innerHTML
+	// 	var search = document.getElementsByClassName('search')[0].innerHTML;
+	// 	document.getElementsByClassName('search')[0].innerHTML = "No results found";
+	// 	gone = true;
+	// }
+	// if (gone == true && count > 0) {
+	// 	document.getElementsByClassName('search')[0].innerHTML = search;
+	// }
 }
 
 function clearheads() {
@@ -169,9 +189,9 @@ function loadStructure(structureIndex){
 			
 			// Make metal ions visible
 			var metalColors = {
-				"ZN": { color: "blue" },
+				"ZN": { color: "lightBlue" },
 				"FE": { color: "red" },
-				"MG": { color: "green" },
+				"MG": { color: "lightGreen" },
 				"CA": { color: "purple" },
 				"MN": { color: "pink" },
 				"CU": { color: "orange" },
