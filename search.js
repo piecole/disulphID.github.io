@@ -167,6 +167,26 @@ function loadStructure(structureIndex){
 			viewers[i].setStyle({ chain: detailsList[i][1] }, { cartoon: { colorscheme: 'greenCarbon' } });
 			/*viewer.setStyle({chain:'B',invert:true},{cartoon:{}});*/
 			
+			// Make metal ions visible
+			var metalColors = {
+				"ZN": { color: "blue" },
+				"FE": { color: "red" },
+				"MG": { color: "green" },
+				"CA": { color: "purple" },
+				"MN": { color: "pink" },
+				"CU": { color: "orange" },
+				"CO": { color: "black" },
+				"NI": { color: "yellow" },
+				"CD": { color: "brown" },
+				"NA": { color: "cyan" },
+				"K": { color: "magenta" }
+			};
+			for (var metal in metalColors) {
+				viewers[i].addStyle({ resn: metal }, { sphere: metalColors[metal] });
+			}
+			//	Make ligands visible
+			viewers[i].addStyle({ hetflag: true }, { stick: { radius: 0.3 } });
+
 			//	Turn cysteines into gray sticks
 			viewers[i].addStyle({ resn: "CYS" }, { stick: { color: "gray", thickness: 1.0 } });
 			//	Turn relevent cysteines into red sticks
