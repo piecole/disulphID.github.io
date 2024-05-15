@@ -260,6 +260,10 @@ h2:target + p{
 	}
 }
 
+#search_enter{
+	display: none;
+}
+
 .search > a > .item, .headbox{
 	display: grid;
 	grid-template-columns: 1fr 10% 10% 10%;
@@ -500,8 +504,7 @@ li {
 	height:100%;
 }
 
-
-.infotitle > a, .help, .button, .info, .infotitle, .redoxstatement, .structure, .item.about, .tablink, .region, .regions > p{
+.infotitle > a, .help, a:has(>.menuitem), .button, .info, .infotitle, .redoxstatement, .structure, .item.about, .tablink, .region, .regions > p{
 	border: 1px solid rgba(0, 0, 0, 0.05);
 }
 

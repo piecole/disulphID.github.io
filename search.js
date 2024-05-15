@@ -1,3 +1,34 @@
+let phone = false;
+const searchButton = document.getElementById('search_enter')
+
+function hideSeachButton(){
+	"use strict";
+	if(searchButton){
+		searchButton.style.display = "none";
+	}
+	phone = false;
+}
+function showSearchButton(){
+	"use strict";
+	if(searchButton){
+		searchButton.style.display = "block";
+	}
+	phone = true;
+}
+// If window is > 500px, hide the search bar
+if (window.innerWidth > 500){
+	hideSeachButton();
+}
+// Listen for resize
+window.addEventListener("resize", function(){
+	if (window.innerWidth > 500){
+		hideSeachButton();
+	}else{
+		showSearchButton();
+	}
+});
+
+
 function removeRegEx(input) {
 	return input.replaceAll(" ", "")
 		.replaceAll("_", "")
@@ -7,9 +38,7 @@ function removeRegEx(input) {
 		.replaceAll(")", "");
 }
 
-function myFunction() {
-	// Triggered on key up of the search bar
-
+function searchFunction(){
 	// Declare variables
 	var input, filter, ul, li, a, i, txtValue;
 	input = document.getElementById('myInput');
@@ -27,25 +56,15 @@ function myFunction() {
 			li[i].style.display = "none";
 		}
 	}
+}
 
-	// // Check how many li have display == ""
-	// var count = 0;
-	// for (i = 0; i < li.length; i++) {
-	// 	if (li[i].style.display == "") {
-	// 		count++;
-	// 	}
-	// }
-	// // If 0, write a message to say no results
-	// var gone = false;
-	// if (count == 0) {
-	// 	// Save the contents of document.getElementsByClassName('search')[0].innerHTML
-	// 	var search = document.getElementsByClassName('search')[0].innerHTML;
-	// 	document.getElementsByClassName('search')[0].innerHTML = "No results found";
-	// 	gone = true;
-	// }
-	// if (gone == true && count > 0) {
-	// 	document.getElementsByClassName('search')[0].innerHTML = search;
-	// }
+function myFunction(event) {
+	// Triggered on key up of the search bar
+	
+	if (phone === false || event.key === "Enter"){
+		searchFunction();
+	}
+
 }
 
 function clearheads() {
@@ -371,10 +390,3 @@ $(".region_info").click(function(e){
 	viewers[currentStructureNum].render()
 	
 });
-
-
-
-
-
-
-
