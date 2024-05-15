@@ -32,9 +32,12 @@ window.addEventListener("resize", function(){
 const search_text = "Search by name, UniProt accession, or function."
 const search_box = document.getElementById('myInput');
 // Change search placeholder
-search_box.setAttribute("placeholder", search_text);
-// Remove disabled tag from search box
-search_box.removeAttribute("disabled");
+if (search_box){
+	search_box.setAttribute("placeholder", search_text);
+	// Remove disabled tag from search box
+	search_box.removeAttribute("disabled");
+}
+
 
 function removeRegEx(input) {
 	return input.replaceAll(" ", "")
