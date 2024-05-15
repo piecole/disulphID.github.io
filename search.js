@@ -1,7 +1,7 @@
 let phone = false;
 const searchButton = document.getElementById('search_enter')
 
-function hideSeachButton(){
+function hideSearchButton(){
 	"use strict";
 	if(searchButton){
 		searchButton.style.display = "none";
@@ -15,19 +15,26 @@ function showSearchButton(){
 	}
 	phone = true;
 }
-// If window is > 500px, hide the search bar
-if (window.innerWidth > 500){
-	hideSeachButton();
+// If window is < 500 px show the bar
+if (window.innerWidth < 500){
+	showSearchButton();
 }
 // Listen for resize
 window.addEventListener("resize", function(){
 	if (window.innerWidth > 500){
-		hideSeachButton();
+		hideSearchButton();
 	}else{
 		showSearchButton();
 	}
 });
 
+// Activate search bar once page loaded
+const search_text = "Search by name, UniProt accession, or function."
+const search_box = document.getElementById('myInput');
+// Change search placeholder
+search_box.setAttribute("placeholder", search_text);
+// Remove disabled tag from search box
+search_box.removeAttribute("disabled");
 
 function removeRegEx(input) {
 	return input.replaceAll(" ", "")

@@ -264,6 +264,10 @@ h2:target + p{
 	display: none;
 }
 
+a{
+	cursor:pointer;
+}
+
 .search > a > .item, .headbox{
 	display: grid;
 	grid-template-columns: 1fr 10% 10% 10%;
