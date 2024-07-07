@@ -128,7 +128,7 @@ $(function() {
   disulphide = viewer.selectedAtoms({chain:details[1],resi:details[2]}) + viewer.selectedAtoms({chain:details[3],resi:details[4]});
   viewer.center({chain:details[1],resi:details[2]});
   
-  viewer.setView(
+  viewer.setView()
   /*viewer.addLine({dashed:true,start:{chain:details[1],resi:details[2]},end:{chain:details[3],resi:details[4]}})*/
   viewer.zoom(5);
 

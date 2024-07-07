@@ -721,6 +721,13 @@ li {
 	overflow-y:auto;
 }
 
+.ligandability{
+	background-color: red;
+}
+.ligandable{
+	background-color: green;
+}
+
 .span2{
 	grid-column: span 2;
 }

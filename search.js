@@ -186,16 +186,14 @@ try {
 
 let viewers = {};
 function loadStructure(structureIndex){
-	let structures = document.querySelectorAll('.viewer');
+	let structures = $('.viewer');
 	let viewer = false;
 	i = structureIndex;
-	document.addEventListener('DOMContentLoaded', function() {
+	$(function () {
 		let element = structures[i];
 		let config = { backgroundColor: 'white' };
-		console.log(element);
 		viewers[i] = $3Dmol.createViewer(element, config);
 		viewer = viewers[i];
-		console.log("downloading structure:", "pdb:" + detailsList[i][0])
 		$3Dmol.download("pdb:" + detailsList[i][0], viewers[i], {}, async function () {
 				
 			//	Enable ability to click a residue to label it with details
@@ -294,9 +292,7 @@ function tabClick(tabNumber){
 	currentStructureNum = tabNumber;
 	
 	//	Check whether a structure has loaded, otherwise load it
-	console.log("checking whether structure is loaded")
 	if (Object.keys(loaded).includes(String(tabNumber)) == false){
-		console.log("loading structure")
 		loadStructure(tabNumber);
 		loaded[tabNumber] = structureDate;
 		structureDate++;
@@ -330,12 +326,9 @@ function remove(el){
 	element.remove();
 }
 
-document.querySelectorAll('.tablink').forEach((element, index) => {
-    element.addEventListener('click', function() {
-        tabClick(index);
-    });
+$(".tablink").click(function(){
+	tabClick($(".tablink").index(this))
 });
-
 	
 if (structurePage == true) {
 	if(window.location.hash){
@@ -347,66 +340,63 @@ if (structurePage == true) {
 };
 
 //	Allow region cards to be clicked to reveal their position in the structure
-document.querySelectorAll(".region_info").forEach(regionInfo => {
-    regionInfo.addEventListener("click", function(e) {
-		
-		//	Toggle .current_region on the region card
-		this.parentNode.classList.toggle("current");
-		
-		//	Reset the styles
-		//	Set cartoon structures for the peptide chains
-		viewers[currentStructureNum].setStyle({}, { cartoon: { colorscheme: 'grayCarbon' } });
-		viewers[currentStructureNum].setStyle({ chain: detailsList[currentStructureNum][3] }, { cartoon: { colorscheme: 'blueCarbon' } });
-		viewers[currentStructureNum].setStyle({ chain: detailsList[currentStructureNum][1] }, { cartoon: { colorscheme: 'greenCarbon' } });
-		//	Turn cysteines into gray sticks
-		viewers[currentStructureNum].addStyle({ resn: "CYS" }, { stick: { color: "gray", thickness: 1.0 } });
-		//	Turn relevent cysteines into red sticks
-		viewers[currentStructureNum].addStyle({ chain: detailsList[currentStructureNum][1], resn: "CYS" }, { stick: { colorscheme: "brownCarbon", thickness: 1.0 } });
-		viewers[currentStructureNum].addStyle({ chain: detailsList[currentStructureNum][3], resn: "CYS" }, { stick: { colorscheme: "brownCarbon", thickness: 1.0 } });
+$(".region_info").click(function(e){
+	
+	//	Toggle .current_region on the region card
+	$(this).parent().toggleClass("current");
+	
+	//	Reset the styles
+	//	Set cartoon structures for the peptide chains
+	viewers[currentStructureNum].setStyle({}, { cartoon: { colorscheme: 'grayCarbon' } });
+	viewers[currentStructureNum].setStyle({ chain: detailsList[currentStructureNum][3] }, { cartoon: { colorscheme: 'blueCarbon' } });
+	viewers[currentStructureNum].setStyle({ chain: detailsList[currentStructureNum][1] }, { cartoon: { colorscheme: 'greenCarbon' } });
+	//	Turn cysteines into gray sticks
+	viewers[currentStructureNum].addStyle({ resn: "CYS" }, { stick: { color: "gray", thickness: 1.0 } });
+	//	Turn relevent cysteines into red sticks
+	viewers[currentStructureNum].addStyle({ chain: detailsList[currentStructureNum][1], resn: "CYS" }, { stick: { colorscheme: "brownCarbon", thickness: 1.0 } });
+	viewers[currentStructureNum].addStyle({ chain: detailsList[currentStructureNum][3], resn: "CYS" }, { stick: { colorscheme: "brownCarbon", thickness: 1.0 } });
 
-		//	Iterate through every region card that has .current and .region
-		for (let current of document.querySelectorAll(".region.current")){
-			
-			//	Read the entire region as an array of words
-			let regionText = []
-			for (let info of current.querySelectorAll(".region_info")){
-				regionText.push(info.innerHTML);
-			};
-					
-			//	Get the locations of the positions
-			//	If indexOf() finds nothing, then it returns -1, this is useful in the next section, because the these will be saved as 0.
-			let beginPos = regionText.indexOf("begin") + 1;
-			let endPos = regionText.indexOf("end") + 1;
-			let positionPos = regionText.indexOf("position") + 1;
-			let chainPos = regionText.indexOf("chain") + 1
-			
-			//	Use the locations of the positions to set the begin/end and chain
-			if (parseInt(beginPos) + parseInt(endPos) > 0){
-				var begin = parseInt(regionText[beginPos]);
-				var end = parseInt(regionText[endPos]);
-			} else if (positionPos > 0){
-				var begin = parseInt(regionText[positionPos]);
-				var end = parseInt(begin);
-			}
-			let chain = regionText[chainPos];
-			
-			//	Color the region of the structure
-			for (let i = begin; i <= end; i++){
-				console.log(i)
-				try{
-					//	If the region is small then add sticks
-					if (end - begin < 20){					
-						viewers[currentStructureNum].addStyle({ chain: chain, resi: i }, { stick: { colorscheme: "orangeCarbon", thickness: 1.0 } });
-					}
-					//	Colour the region purple no matter what
-					viewers[currentStructureNum].addStyle({ chain: chain, resi: i }, { cartoon: { colorscheme: "orangeCarbon"} });
-				}catch{
-					console.log("failed to add " + chain + " " + i);
-				};
-			}
+	//	Iterate through every region card that has .current and .region
+	for (let current of document.querySelectorAll(".region.current")){
+		
+		//	Read the entire region as an array of words
+		let regionText = []
+		for (let info of current.querySelectorAll(".region_info")){
+			regionText.push(info.innerHTML);
 		};
-		viewers[currentStructureNum].render()
+				
+		//	Get the locations of the positions
+		//	If indexOf() finds nothing, then it returns -1, this is useful in the next section, because the these will be saved as 0.
+		let beginPos = regionText.indexOf("begin") + 1;
+		let endPos = regionText.indexOf("end") + 1;
+		let positionPos = regionText.indexOf("position") + 1;
+		let chainPos = regionText.indexOf("chain") + 1
 		
-	});
-
+		//	Use the locations of the positions to set the begin/end and chain
+		if (parseInt(beginPos) + parseInt(endPos) > 0){
+			var begin = parseInt(regionText[beginPos]);
+			var end = parseInt(regionText[endPos]);
+		} else if (positionPos > 0){
+			var begin = parseInt(regionText[positionPos]);
+			var end = parseInt(begin);
+		}
+		let chain = regionText[chainPos];
+		
+		//	Color the region of the structure
+		for (let i = begin; i <= end; i++){
+			console.log(i)
+			try{
+				//	If the region is small then add sticks
+				if (end - begin < 20){					
+					viewers[currentStructureNum].addStyle({ chain: chain, resi: i }, { stick: { colorscheme: "orangeCarbon", thickness: 1.0 } });
+				}
+				//	Colour the region purple no matter what
+				viewers[currentStructureNum].addStyle({ chain: chain, resi: i }, { cartoon: { colorscheme: "orangeCarbon"} });
+			}catch{
+				console.log("failed to add " + chain + " " + i);
+			};
+		}
+	};
+	viewers[currentStructureNum].render()
+	
 });
