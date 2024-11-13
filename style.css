@@ -598,6 +598,9 @@ a:has(>.menuitem),
 	.info, .link{
 		grid-column: span 3;
 	}
+	.grid:has(.ligandability){
+		grid-template-columns: 1fr 1fr;
+	}
 }
 
 .infotitle, .info, .link{
