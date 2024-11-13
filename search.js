@@ -182,7 +182,29 @@ try {
 
 }
 
+function overrideSG(input){
+	// If 'SG' is in the input, replace it with 'S'
+	if (input.includes("SG")){
+		return "S";
+	}else{
+		return input;
+	}
+}
 
+// Make metal ions visible
+var metalColors = {
+	"ZN": { color: "lightBlue" },
+	"FE": { color: "red" },
+	"MG": { color: "lightGreen" },
+	"CA": { color: "purple" },
+	"MN": { color: "pink" },
+	"CU": { color: "orange" },
+	"CO": { color: "black" },
+	"NI": { color: "yellow" },
+	"CD": { color: "brown" },
+	"NA": { color: "cyan" },
+	"K": { color: "magenta" }
+};
 
 let viewers = {};
 function loadStructure(structureIndex){
@@ -202,7 +224,7 @@ function loadStructure(structureIndex){
 					viewers[i].removeLabel(target.label);
 					delete target.label;
 				} else {
-					viewers[i].addLabel(target.resn + target.resi + " - " + target.atom,
+					viewers[i].addLabel(target.resn + target.resi + " - " + overrideSG(target.atom),
 					{ position: target, backgroundColor: 'gray', backgroundOpacity: 0.8 });
 					/* viewer.center({target}, 1000); // Wanted to be able to center it on a clickable one, 
 					but couldn't work it */
@@ -216,20 +238,6 @@ function loadStructure(structureIndex){
 			viewers[i].setStyle({ chain: detailsList[i][1] }, { cartoon: { colorscheme: 'greenCarbon' } });
 			/*viewer.setStyle({chain:'B',invert:true},{cartoon:{}});*/
 			
-			// Make metal ions visible
-			var metalColors = {
-				"ZN": { color: "lightBlue" },
-				"FE": { color: "red" },
-				"MG": { color: "lightGreen" },
-				"CA": { color: "purple" },
-				"MN": { color: "pink" },
-				"CU": { color: "orange" },
-				"CO": { color: "black" },
-				"NI": { color: "yellow" },
-				"CD": { color: "brown" },
-				"NA": { color: "cyan" },
-				"K": { color: "magenta" }
-			};
 			for (var metal in metalColors) {
 				viewers[i].addStyle({ resn: metal }, { sphere: metalColors[metal] });
 			}
@@ -355,6 +363,12 @@ $(".region_info").click(function(e){
 	//	Turn relevent cysteines into red sticks
 	viewers[currentStructureNum].addStyle({ chain: detailsList[currentStructureNum][1], resn: "CYS" }, { stick: { colorscheme: "brownCarbon", thickness: 1.0 } });
 	viewers[currentStructureNum].addStyle({ chain: detailsList[currentStructureNum][3], resn: "CYS" }, { stick: { colorscheme: "brownCarbon", thickness: 1.0 } });
+	//	Make metals visible
+	for (var metal in metalColors) {
+		viewers[currentStructureNum].addStyle({ resn: metal }, { sphere: metalColors[metal] });
+	}
+	//	Make ligands visible
+	viewers[currentStructureNum].addStyle({ hetflag: true }, { stick: { radius: 0.3 } });
 
 	//	Iterate through every region card that has .current and .region
 	for (let current of document.querySelectorAll(".region.current")){

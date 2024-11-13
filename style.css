@@ -171,7 +171,6 @@ h2:target + p{
 	width: 80%;
 }
 
-
 .citation.home {
 	font-size:15px;
 	width:fit-content;
@@ -270,7 +269,7 @@ a{
 
 .search > a > .item, .headbox{
 	display: grid;
-	grid-template-columns: 1fr 10% 10% 10%;
+	grid-template-columns: 1fr 10% 10% 10% 10%;
 	gap:.7%;
 	padding:.7%;
 	box-sizing: border-box;
@@ -291,7 +290,7 @@ a{
 
 	.search > a > .item, .headbox{
 		display: grid;
-		grid-template-columns: 1fr 10% 10% 10%;
+		grid-template-columns: 1fr 10% 10% 10% 10%;
 		gap:7px;
 		padding:7px;
 		box-sizing: border-box;
@@ -435,10 +434,14 @@ h1 {
 	width: fit-content;
 }
 
-h2{
+h2, h3{
 	margin: 40px 0px 20px 20px;
 	text-align:left;
 	font-family:sans-serif;
+}
+
+h3{
+	margin-top: 20px;
 }
 
 .tab > h2{
@@ -479,6 +482,10 @@ li {
 	gap:7px;
 }
 
+.grid:has(.ligandability){
+	gap:10px;
+}
+
 .info, .infotitle, .link{
 	box-sizing: border-box;
 	padding:15px;
@@ -508,11 +515,33 @@ li {
 	height:100%;
 }
 
-.infotitle > a, .help, a:has(>.menuitem), .button, .info, .infotitle, .redoxstatement, .structure, .item.about, .tablink, .region, .regions > p{
+.infotitle > a,
+.help,
+a:has(>.menuitem),
+.button,
+.info,
+.infotitle,
+.redoxstatement,
+.structure,
+.item.about,
+.tablink,
+.region,
+.regions > p,
+.ligandability{
 	border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-:where( .infotitle > a, .help,.button, .tablink, .info, .infotitle, .redoxstatement, .item.about, .region, .regions > p):not(:hover){
+:where(
+.infotitle > a,
+.help,
+.button,
+.tablink,
+.info,
+.infotitle,
+.redoxstatement,
+.item.about, .region,
+.regions > p,
+.ligandability):not(:hover){
 	transition: 1s ease;
 }
 
@@ -538,7 +567,8 @@ li {
 .redoxstatement:hover,
 .infotitle:hover,
 .structure:hover,
-.item.about:hover{
+.item.about:hover,
+.ligandability{
 	border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
@@ -555,6 +585,9 @@ li {
 	}
 	.item > p{
 		font-size: 1rem;
+	}
+	.grid:has(.ligandability){
+		grid-template-columns: 1fr 1fr 1fr;
 	}
 }
 
@@ -626,7 +659,8 @@ li {
 .tablink:hover:not(:focus):not(.current),
 .region:hover:not(.current),
 .regions > p:hover,
-.button:hover{
+.button:hover,
+.ligandability:hover{
 	border: solid 1px rgba(0, 0, 0, 0.3);
 }
 
@@ -674,7 +708,6 @@ li {
 
 .regions{
 	display:grid;
-	display:none;
 	grid-auto-flow: column;
 	gap: 7px;
 	overflow-x:scroll;
@@ -719,6 +752,22 @@ li {
 	display:flex;
 	align-items:center;
 	overflow-y:auto;
+}
+
+.ligandability{
+	background-color: rgba(255,0,0,0.3);
+}
+.ligandable{
+	background-color: rgba(70,255,100,.4);
+}
+.lig_tab{
+	background-color: lightgreen;
+	border-radius: 5px;
+	width:20px;
+	padding:2px;
+	outline: 1px solid rgba(0, 0, 0, 0.5);
+	display:inline-block;
+	margin-left:10px;
 }
 
 .span2{
