@@ -344,7 +344,10 @@ if (structurePage == true) {
 		let hash = window.location.hash.substring(1)
 		tabClick(hash);
 	}else{
-		tabClick(0);
+		// Wait a couple of seconds to load the first structure
+		setTimeout(function() {
+			tabClick(0);
+		}, 2000);
 	}
 };
 
