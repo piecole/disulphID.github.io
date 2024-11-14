@@ -759,6 +759,9 @@ a:has(>.menuitem),
 .ligandability{
 	background-color: rgba(255,0,0,0.3);
 }
+.ligandable{
+	background-color: rgba(70,255,100,.4);
+}
 .lig_tab{
 	background-color: lightgreen;
 	border-radius: 5px;
