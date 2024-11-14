@@ -339,6 +339,7 @@ $(".tablink").click(function(){
 });
 	
 if (structurePage == true) {
+	console.log("Loading structure...")
 	if(window.location.hash){
 		let hash = window.location.hash.substring(1)
 		tabClick(hash);

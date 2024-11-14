@@ -756,12 +756,8 @@ a:has(>.menuitem),
 	align-items:center;
 	overflow-y:auto;
 }
-
 .ligandability{
 	background-color: rgba(255,0,0,0.3);
-}
-.ligandable{
-	background-color: rgba(70,255,100,.4);
 }
 .lig_tab{
 	background-color: lightgreen;
