@@ -244,12 +244,38 @@ function loadStructure(structureIndex){
 			//	Make ligands visible
 			viewers[i].addStyle({ hetflag: true }, { stick: { radius: 0.3 } });
 
-			//	Turn cysteines into gray sticks
-			viewers[i].addStyle({ resn: "CYS" }, { stick: { color: "gray", thickness: 1.0 } });
-			//	Turn relevent cysteines into red sticks
-			viewers[i].addStyle({ chain: detailsList[i][1], resn: "CYS" }, { stick: { colorscheme: "brownCarbon", thickness: 1.0 } });
-			viewers[i].addStyle({ chain: detailsList[i][3], resn: "CYS" }, { stick: { colorscheme: "brownCarbon", thickness: 1.0 } });
+			// Turn cysteines into gray sticks (side-chain only)
+			viewers[i].addStyle({ 
+				resn: "CYS", 
+				atom: ["CA", "CB", "SG"] 
+			}, { 
+				stick: { 
+					color: "gray", 
+					thickness: 1.0 
+				} 
+			});
+			// Turn relevant cysteines into red sticks (side-chain only)
+			viewers[i].addStyle({ 
+				chain: detailsList[i][1], 
+				resn: "CYS", 
+				atom: ["CA", "CB", "SG"] 
+			}, { 
+				stick: { 
+					colorscheme: "brownCarbon", 
+					thickness: 1.0 
+				} 
+			});
 
+			viewers[i].addStyle({ 
+				chain: detailsList[i][3], 
+				resn: "CYS", 
+				atom: ["CA", "CB", "SG"]  
+			}, { 
+				stick: { 
+					colorscheme: "brownCarbon", 
+					thickness: 1.0 
+				} 
+			});
 			//	Label the relevent cysteines
 			viewers[i].addLabel("Cys " + detailsList[i][4], { backgroundColor: 'darkblue', backgroundOpacity: 0.8, alignment: "bottomRight" }, { chain: detailsList[i][3], resi: detailsList[i][4] });
 			viewers[i].addLabel("Cys " + detailsList[i][2], { backgroundColor: 'darkgreen', backgroundOpacity: 0.8, alignment: "bottomRight" }, { chain: detailsList[i][1], resi: detailsList[i][2] });
