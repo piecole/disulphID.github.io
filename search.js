@@ -265,7 +265,6 @@ function loadStructure(structureIndex){
 					thickness: 1.0 
 				} 
 			});
-
 			viewers[i].addStyle({ 
 				chain: detailsList[i][3], 
 				resn: "CYS", 
