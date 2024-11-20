@@ -431,15 +431,14 @@ $(".region_info").click(function(e){
 	
 });
 
-if (structurePage == true) {
-	console.log("Loading structure...")
-	if(window.location.hash){
-		let hash = window.location.hash.substring(1)
-		tabClick(hash);
-	}else{
-		// Wait a couple of seconds to load the first structure?
-		setTimeout(function() {
-			tabClick(0);
-		}, 2000);
-	}
-};
+document.addEventListener('DOMContentLoaded', function() {
+    if (structurePage == true) {
+        console.log("Loading structure...");
+        if (window.location.hash) {
+            let hash = window.location.hash.substring(1);
+            tabClick(hash);
+        } else {
+            tabClick(0);
+        }
+    }
+});
