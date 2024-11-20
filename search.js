@@ -362,19 +362,6 @@ function remove(el){
 $(".tablink").click(function(){
 	tabClick($(".tablink").index(this))
 });
-	
-if (structurePage == true) {
-	console.log("Loading structure...")
-	if(window.location.hash){
-		let hash = window.location.hash.substring(1)
-		tabClick(hash);
-	}else{
-		// Wait a couple of seconds to load the first structure
-		setTimeout(function() {
-			tabClick(0);
-		}, 2000);
-	}
-};
 
 //	Allow region cards to be clicked to reveal their position in the structure
 $(".region_info").click(function(e){
@@ -443,3 +430,16 @@ $(".region_info").click(function(e){
 	viewers[currentStructureNum].render()
 	
 });
+
+if (structurePage == true) {
+	console.log("Loading structure...")
+	if(window.location.hash){
+		let hash = window.location.hash.substring(1)
+		tabClick(hash);
+	}else{
+		// Wait a couple of seconds to load the first structure?
+		//setTimeout(function() {
+			tabClick(0);
+		//}, 2000);
+	}
+};
