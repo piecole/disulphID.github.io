@@ -438,8 +438,8 @@ if (structurePage == true) {
 		tabClick(hash);
 	}else{
 		// Wait a couple of seconds to load the first structure?
-		//setTimeout(function() {
+		setTimeout(function() {
 			tabClick(0);
-		//}, 2000);
+		}, 2000);
 	}
 };
