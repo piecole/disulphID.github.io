@@ -386,6 +386,8 @@ $(".region_info").click(function(e){
 	//	Make ligands visible
 	viewers[currentStructureNum].addStyle({ hetflag: true }, { stick: { radius: 0.3 } });
 
+
+
 	//	Iterate through every region card that has .current and .region
 	for (let current of document.querySelectorAll(".region.current")){
 		
@@ -434,11 +436,75 @@ $(".region_info").click(function(e){
 document.addEventListener('DOMContentLoaded', function() {
     if (structurePage == true) {
         console.log("Loading structure...");
-        if (window.location.hash) {
-            let hash = window.location.hash.substring(1);
-            tabClick(hash);
-        } else {
-            tabClick(0);
-        }
+		// Wait 2 seconds before executing
+		setTimeout(function(){
+			if (window.location.hash) {
+				let hash = window.location.hash.substring(1);
+				tabClick(hash);
+			} else {
+				tabClick(0);
+			}
+		}, 2000);
     }
 });
+
+// Function to change cartoon style
+function changeCartoonStyle(style) {
+	viewers[currentStructureNum].setStyle({}, { cartoon: { style: style, color: 'spectrum' } });
+	viewers[currentStructureNum].render();
+}
+
+// Function to add or change the opacity of the surface representation
+surfaces = {}
+function changeOpacity(opacity) {
+    opacity = parseFloat(opacity);
+
+    if ( currentStructureNum in surfaces){
+        // Store the surface object in the viewer
+		console.log("opacity", opacity)
+	} else {
+		viewers[currentStructureNum].addSurface({}, { opacity: 0.5, color: "gray" }); 
+	};
+
+	viewers[currentStructureNum].render();
+}
+
+
+function exportImage() {
+    // Define the desired resolution multiplier
+    const resolutionMultiplier = 2;
+
+    // Get the original dimensions
+    const originalWidth = viewers[currentStructureNum].container.clientWidth;
+    const originalHeight = viewers[currentStructureNum].container.clientHeight;
+
+    // Calculate the new dimensions
+    const newWidth = originalWidth * resolutionMultiplier;
+    const newHeight = originalHeight * resolutionMultiplier;
+
+    // Get the image data URL at the specified dimensions
+    const imageURL = viewers[currentStructureNum].pngURI(newWidth, newHeight);
+
+    // Create a temporary link to trigger the download
+    const link = document.createElement('a');
+    link.href = imageURL;
+    link.download = "viewer_image.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function toggleControls() {
+    const controls = document.getElementById('controlsContainer');
+    const toggleButton = event.target;  // The button that was clicked
+    
+    if (controls.style.display === 'none') {
+        // Show the controls
+        controls.style.display = 'block';
+        toggleButton.textContent = 'Hide Structure Controls';
+    } else {
+        // Hide the controls
+        controls.style.display = 'none';
+        toggleButton.textContent = 'Show Structure Controls';
+    }
+}

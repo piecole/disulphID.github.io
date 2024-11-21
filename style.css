@@ -776,6 +776,80 @@ a:has(>.menuitem),
 	grid-column: span 2;
 }
 
+/* General container styling */
+#controlsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 5px;
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+}
+
+/* Styling for each control row */
+.control-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Label styling */
+#controlsContainer label {
+    flex: 1;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Input and select styling */
+#controlsContainer select,
+#controlsContainer input[type="range"] {
+    flex: 2;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Range input specific styling */
+#controlsContainer input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: #ddd;
+    outline: none;
+    border-radius: 5px;
+    padding: 0;
+}
+
+#controlsContainer input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: #007BFF;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+#controlsContainer input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+/* Button styling */
+#controlsContainer button,
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 /*{
 	outline: 1px solid red;
 }*/
