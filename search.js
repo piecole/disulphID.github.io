@@ -50,22 +50,27 @@ function removeRegEx(input) {
 
 function searchFunction(){
 	// Declare variables
-	var input, filter, ul, li, a, i, txtValue;
+	var input, filter, searchContainer, parentAnchors, i, txtValue;
 	input = document.getElementById('myInput');
 	filter = removeRegEx(input.value.toUpperCase());
-	ul = document.getElementsByClassName('main')[0];
-	li = ul.getElementsByClassName('item');
+    searchContainer = document.querySelector('.main .search'); // Target search div
+    if (!searchContainer) return; // Exit if not found
 
-	// Loop through all list items, and hide those who don't match the search query
-	for (i = 0; i < li.length; i++) {
-		a = li[i];
-		txtValue = a.textContent || a.innerText;
+	parentAnchors = searchContainer.querySelectorAll(':scope > a'); // Get anchors inside search
+
+	// Loop through parent <a> tags, hide those whose inner item doesn't match
+	for (i = 0; i < parentAnchors.length; i++) {
+		let anchor = parentAnchors[i];
+        // Get text from the inner div.item for matching
+		let itemDiv = anchor.querySelector('div.item');
+        txtValue = itemDiv ? (itemDiv.textContent || itemDiv.innerText) : '';
 		if (removeRegEx(txtValue).toUpperCase().indexOf(filter) > -1) {
-			li[i].style.display = "";
+			anchor.style.display = ""; // Set style on the anchor
 		} else {
-			li[i].style.display = "none";
+			anchor.style.display = "none"; // Set style on the anchor
 		}
 	}
+	limitVisibleEntries();
 }
 
 function myFunction(event) {
@@ -86,53 +91,120 @@ function clearheads() {
 }
 
 function actualSort(col) {
-	var $divs = $(".search a");
-	var column = ".col" + col.toString();
+    // 1. Get the SEARCH container (inside main)
+    const searchContainer = document.querySelector('.main .search'); // More specific selector
+    if (!searchContainer) {
+         console.error("actualSort: '.search' container not found inside '.main'.");
+         document.getElementsByClassName('loading')[0].style.display = "none"; // Hide loading
+         return;
+    }
+    const mainContainer = document.querySelector('.main'); // Keep reference if needed elsewhere
+
+    // 2. Get direct child <a> elements WITHIN the search container
+    const anchorNodeList = searchContainer.querySelectorAll(':scope > a'); // Get direct children <a>
+    if (anchorNodeList.length === 0) {
+        console.warn("actualSort: No direct child <a> elements found inside '.search'.");
+        document.getElementsByClassName('loading')[0].style.display = "none";
+        searchContainer.style.display = ""; // Ensure search container itself is visible
+        return;
+    }
+    console.log("actualSort: Anchors found for sorting:", anchorNodeList.length);
+
+    // 3. Create an array of these parent <a> elements
+    let parentAnchorArray = Array.from(anchorNodeList);
+
+    // 4. Perform Sorting Logic (on the parent <a> array)
+    var columnSelector = ".col" + col.toString();
 	var head = "head col" + col.toString();
 	head = document.getElementsByClassName(head)[0];
 	var li = document.getElementsByClassName("head");
-	for (var i = 0; i < li.length; i++) {
-		li[i].classList.remove("selected");
-	}
+	for (var i = 0; i < li.length; i++) { li[i].classList.remove("selected"); }
 	head.classList.add("selected");
-	var numerical = true;
-	//if(["7"].includes(col.toString())){
-	//	numerical = false;
-	//}
-	if (head.innerHTML.includes("^")) {
-		clearheads();
-		head.innerHTML += " v";
-		var alphabeticallyOrderedDivs = $divs.sort(function (a, b) {
-			return $(b).find(column).text().replace("nan", 0).localeCompare($(a).find(column).text()
-			.replace("nan", 0), undefined, { numeric: numerical });
-		});
-	} else if (head.innerHTML.includes("v")) {
-		clearheads();
-		var alphabeticallyOrderedDivs = $divs.sort(function (a, b) {
-			return $(a).find(column).text().replace("nan", 100000000000).localeCompare($(b).find(column)
-			.text().replace("nan", 100000000000), undefined, { numeric: numerical });
-		});
-		head.innerHTML += " ^";
-	} else {
-		clearheads();
-		var alphabeticallyOrderedDivs = $divs.sort(function (a, b) {
-			return $(b).find(column).text().replace("nan", 0).localeCompare($(a).find(column)
-			.text().replace("nan", 0), undefined, { numeric: numerical });
-		});
-		head.innerHTML += " v";
-	}
-	$(".search").html(alphabeticallyOrderedDivs);
-	document.getElementsByClassName('search')[0].style.display = "";
-	document.getElementsByClassName('loading')[0].style.display = "none";
+    
+    let sortOrder; // Determine sort order based on current state BEFORE toggling arrows
 
-	//loadMessage.style.display = "none";
+    if (head.innerHTML.includes(" v")) {
+        // Currently shows 'v' (descending), so this click should sort ASCENDING
+        sortOrder = 'asc';
+        clearheads();
+        head.innerHTML += " ^"; // Update arrow for next click (now shows ascending)
+    } else if (head.innerHTML.includes(" ^")) {
+        // Currently shows '^' (ascending), so this click should sort DESCENDING
+        sortOrder = 'desc';
+        clearheads();
+        head.innerHTML += " v"; // Update arrow for next click (now shows descending)
+    } else {
+        // No arrow present (first click), default to DESCENDING sort
+        sortOrder = 'desc';
+        clearheads();
+        head.innerHTML += " v"; // Update arrow for next click (now shows descending)
+    }
+    console.log("actualSort: Determined sortOrder:", sortOrder); // Add log
+
+    // Sort using the determined order
+    parentAnchorArray.sort(function (a, b) {
+        // Find the column text WITHIN the div.item child of the anchor
+        const itemDivA = a.querySelector('div.item');
+        const itemDivB = b.querySelector('div.item');
+        const textAElement = itemDivA ? itemDivA.querySelector(columnSelector) : null;
+        const textBElement = itemDivB ? itemDivB.querySelector(columnSelector) : null;
+        const textA = textAElement ? (textAElement.textContent || '') : '';
+        const textB = textBElement ? (textBElement.textContent || '') : '';
+        let valA = textA.toLowerCase().replace("nan", sortOrder === 'asc' ? 'zzzzzz' : '-1');
+        let valB = textB.toLowerCase().replace("nan", sortOrder === 'asc' ? 'zzzzzz' : '-1');
+        let comparison = 0;
+        const numA = parseFloat(valA);
+        const numB = parseFloat(valB);
+        if (!isNaN(numA) && !isNaN(numB)) { comparison = numA - numB; } else { comparison = valA.localeCompare(valB); }
+        return sortOrder === 'asc' ? comparison : -comparison;
+    });
+	console.log("actualSort: Parent anchors after sorting logic:", parentAnchorArray.length);
+
+    // 5. Rebuild the innerHTML of the SEARCH container
+    const sortedHtml = parentAnchorArray.map(anchor => anchor.outerHTML).join('');
+    searchContainer.innerHTML = sortedHtml; // Replace content of .search, not .main
+	console.log("actualSort: Rebuilt innerHTML of .search with sorted items.");
+
+    // 6. Re-apply the current search filter (inside .search, targeting <a>)
+    setTimeout(() => {
+        var currentInput = document.getElementById('myInput');
+        let filter = '';
+        // Re-select anchors within the updated searchContainer
+        const sortedAnchors = searchContainer.querySelectorAll(':scope > a');
+        if (currentInput && currentInput.value) {
+            filter = removeRegEx(currentInput.value.toUpperCase());
+            console.log("actualSort (post-innerHTML): Re-applying search filter:", filter);
+            sortedAnchors.forEach(anchor => {
+                let txtValue = anchor.querySelector('div.item') ? (anchor.querySelector('div.item').textContent || anchor.querySelector('div.item').innerText) : '';
+                if (filter && removeRegEx(txtValue).toUpperCase().indexOf(filter) === -1) {
+                     anchor.style.display = "none";
+                } else {
+                     anchor.style.display = "";
+                }
+            });
+        } else {
+             // Ensure all are visible if no filter
+             sortedAnchors.forEach(anchor => { anchor.style.display = ""; });
+        }
+
+        // 7. Apply the 100-item limit (inside .search, targeting <a>)
+        limitVisibleEntries(); 
+        console.log("actualSort (post-innerHTML): Filter and Limit applied.");
+
+        // Hide loading message & ensure search container is visible
+	    document.getElementsByClassName('loading')[0].style.display = "none";
+        searchContainer.style.display = ""; // Ensure search container is visible
+
+    }, 0);
 }
 
 function sortA(col) {
 	var loadMessage = document.getElementsByClassName('loading')[0];
 	loadMessage.style.display = "block";
-	var search = document.getElementsByClassName('search')[0];
-	search.style.display = "none";
+	var searchContainer = document.querySelector('.main .search'); // Get the search container
+    if (searchContainer) {
+        searchContainer.style.display = "none"; // Hide it before sorting
+    }
 	setTimeout(function () { actualSort(col); }, 0);
 }
 
@@ -350,7 +422,10 @@ function tabClick(tabNumber){
 	}
 	document.getElementsByClassName("tab")[tabNumber].classList.remove("hidden"); //Show intended tab
 	document.getElementsByClassName("tablink")[tabNumber].classList.add("current"); // Add .current to clicked tab link 
-};
+
+	// Limit entries when a tab is clicked initially if needed (optional, depends on tab setup)
+	// limitVisibleEntries();
+}
 
 
 
@@ -386,7 +461,7 @@ $(".region_info").click(function(e){
 	//	Make ligands visible
 	viewers[currentStructureNum].addStyle({ hetflag: true }, { stick: { radius: 0.3 } });
 
-
+	viewers[currentStructureNum].surfaceID = null;
 
 	//	Iterate through every region card that has .current and .region
 	for (let current of document.querySelectorAll(".region.current")){
@@ -446,6 +521,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		}, 2000);
     }
+    // Apply the limit on initial page load IF the search container exists
+    const searchContainer = document.querySelector('.main .search');
+    if (searchContainer) {
+        limitVisibleEntries();
+    }
 });
 
 // Function to change cartoon style
@@ -454,21 +534,22 @@ function changeCartoonStyle(style) {
 	viewers[currentStructureNum].render();
 }
 
+let surfaces = new Set()
 // Function to add or change the opacity of the surface representation
-surfaces = {}
 function changeOpacity(opacity) {
-    opacity = parseFloat(opacity);
-
-    if ( currentStructureNum in surfaces){
-        // Store the surface object in the viewer
-		console.log("opacity", opacity)
-	} else {
-		viewers[currentStructureNum].addSurface({}, { opacity: 0.5, color: "gray" }); 
-	};
-
-	viewers[currentStructureNum].render();
+	
+	// Check that number isnt in surfaces
+	if (!surfaces.has(currentStructureNum)){
+		viewers[currentStructureNum].surfid = viewers[currentStructureNum].addSurface({}, { opacity: opacity, color: "gray" });
+		surfaces.add(currentStructureNum);
+	}
+	viewers[currentStructureNum].setSurfaceMaterialStyle(viewers[currentStructureNum].surfid, {
+		color: 0x00ff00,   // Change color to green
+		opacity: opacity,      // Set opacity to 50%
+		transparent: true  // Enable transparency
+	});
+    viewers[currentStructureNum].render();
 }
-
 
 function exportImage() {
     // Define the desired resolution multiplier
@@ -507,4 +588,28 @@ function toggleControls() {
         controls.style.display = 'none';
         toggleButton.textContent = 'Show Structure Controls';
     }
+}
+
+function limitVisibleEntries() {
+    const searchContainer = document.querySelector('.main .search'); // Target search div
+	if (!searchContainer) return;
+
+	// Get the parent <a> tags inside the search container
+    const parentAnchors = searchContainer.querySelectorAll(':scope > a');
+	let visibleCount = 0;
+	const limit = 100;
+
+	// Iterate through parent <a> tags
+	for (let i = 0; i < parentAnchors.length; i++) {
+        let anchor = parentAnchors[i];
+		// Check the anchor's display style
+		if (anchor.style.display !== "none") {
+			if (visibleCount < limit) {
+				anchor.style.display = ""; // Ensure visible
+				visibleCount++;
+			} else {
+				anchor.style.display = "none"; // Hide extras
+			}
+		}
+	}
 }
