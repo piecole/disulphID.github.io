@@ -347,6 +347,12 @@ a{
 	.col6.head{
 		font-size: 10px;
 	}
+	.col5, .col6 {
+		display: none;
+	}
+	.search > a > .item, .headbox {
+		grid-template-columns: 1fr 15% 15%;
+	}
 }
 
 @media only screen and (max-width: 1000px) {
