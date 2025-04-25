@@ -83,6 +83,16 @@ body{
 	height:fit-content;
 }
 
+/* Ensure loading message is hidden by default */
+.main > .item.loading {
+    display: none; /* Hide by default, REMOVED !important */
+    margin-bottom: 10px;
+    width: 100%; 
+    box-sizing: border-box; 
+    padding: 10px; 
+    text-align: center; 
+}
+
 /*.head{
 	font-family: sans-serif;
 	background: rgba(200, 200, 200, 0.4);
