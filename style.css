@@ -870,24 +870,3 @@ button {
 /*{
 	outline: 1px solid red;
 }*/
-
-/* Banner Styling */
-body::before {
-  content: "Welcome SFRR!";
-  position: fixed; /* Use fixed positioning */
-  top: 120px;      /* Move down slightly */
-  left: -80px;     /* Move right slightly */
-  width: 300px;   /* Give it a width */
-  text-align: center; /* Center the text */
-  background-color: #007bff; /* Friendly blue background */
-  color: white;   /* White text */
-  padding: 5px 10px; /* Padding around the text */
-  border-radius: 3px; /* Slightly rounded corners */
-  font-size: 14px;    /* Font size */
-  font-family: sans-serif; /* Consistent font */
-  z-index: 1000;      /* Ensure it stays on top */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Optional subtle shadow */
-  user-select: none; /* Prevent text selection */
-  transform: rotate(-30deg); /* Rotate the banner */
-  transform-origin: top left; /* Set rotation origin */
-}
