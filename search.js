@@ -187,7 +187,7 @@ function actualSort(col) {
              sortedAnchors.forEach(anchor => { anchor.style.display = ""; });
         }
 
-        // 7. Apply the 100-item limit (inside .search, targeting <a>)
+        // 7. Apply the 1000-item limit (inside .search, targeting <a>)
         limitVisibleEntries(); 
         console.log("actualSort (post-innerHTML): Filter and Limit applied.");
 
@@ -597,7 +597,7 @@ function limitVisibleEntries() {
 	// Get the parent <a> tags inside the search container
     const parentAnchors = searchContainer.querySelectorAll(':scope > a');
 	let visibleCount = 0;
-	const limit = 100;
+	const limit = 1000;
 
 	// Iterate through parent <a> tags
 	for (let i = 0; i < parentAnchors.length; i++) {
